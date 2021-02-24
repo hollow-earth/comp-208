@@ -28,7 +28,7 @@ def numberWords(inputString):
 
     print("Number of words in the text: ", numberWordsInt)          #Print the number of words
 
-def checkWord(inputWord):
+def checkWord(inputWord):                                           # Could've used .isalphanum() but this may have been considered too advanced for the class
     word = inputWord.lower()
     contains_alpha = False
 
@@ -41,15 +41,19 @@ def checkWord(inputWord):
 
 def wordCount(inputString):
     splitArray = inputString.lower()                                # We make the string lowercase for checking
-    splitArray = inputString.split(" ")                             # We split words into different indices for a list 
+    splitArray = splitArray.split(" ")                             # We split words into different indices for a list 
 
     for i in range(0,len(splitArray)):                              # "For every word in this list"
         if checkWord(splitArray[i]) == True:                        # If it is a valid word
-                if splitArray[i] not in countWordDict:              # We initialize it in the dictionary if it doesn't exist
-                    countWordDict[splitArray[i]] = 1
-                elif splitArray[i] in countWordDict:                # If it exists in the dictionary, then we add 1
-                    countWordDict[splitArray[i]] += 1
-    
+            if list(splitArray[i])[-1] not in alphanumeric:
+                splitArray[i] = splitArray[i][:len(splitArray[i])-1]# This is to prevent words like class!, !class, and class to be counted as three separate words
+            if list(splitArray[i])[0] not in alphanumeric:
+                splitArray[i] = splitArray[i][1:]                   # Same as above, this one checks the first letter for non-alphanum characters
+            if splitArray[i] not in countWordDict:                  # We initialize it in the dictionary if it doesn't exist
+                countWordDict[splitArray[i]] = 1
+            elif splitArray[i] in countWordDict:                    # If it exists in the dictionary, then we add 1
+                countWordDict[splitArray[i]] += 1
+                
     for i in countWordDict:                                         # For every word in the dictionary, we print the following line
         print("Number of times word \"", str(i), "\" is used:", countWordDict[i])
 

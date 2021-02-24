@@ -12,7 +12,7 @@ while i > 0:                                                # For circles from 7
     if i <= 3:                                              # But this is for the three inner circles, who have an exponential relationship r_n = r_{n-1}^2
         turtle.color('black', 'white')                      # This is a circle with a white color
         turtle.begin_fill()                                 # This is how we start a fill
-        turtle.circle(2**(i-1)*5)                           # As the radius of the circle is exponential (x2 each time for first three) with arbitrary radisu 5
+        turtle.circle(2**(i-1)*5)                           # As the radius of the circle is exponential (x2 each time for first three) with arbitrary radius 5
         turtle.end_fill()                                   # This is how we end a fill
         i -= 1                                              # We drew one circle, so remove 1 from counter
 
