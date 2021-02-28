@@ -41,7 +41,7 @@ def checkWord(inputWord):                                           # Could've u
 
 def wordCount(inputString):
     splitArray = inputString.lower()                                # We make the string lowercase for checking
-    splitArray = splitArray.split(" ")                             # We split words into different indices for a list 
+    splitArray = splitArray.split(" ")                              # We split words into different indices for a list 
 
     for i in range(0,len(splitArray)):                              # "For every word in this list"
         if checkWord(splitArray[i]) == True:                        # If it is a valid word

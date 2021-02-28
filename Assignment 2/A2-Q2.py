@@ -30,7 +30,6 @@ def graphGrowth(growth_table):
         turtle.goto(i*100,0)                                                        # We multiply the x coordinate by 100 because otherwise it's not very noticeable and then go there
         turtle.pendown()                                                            # We start drawing after going to the x coordinate
         turtle.circle(growth_table[i]/100)                                          # We make a circle the radius the size of results/100 (for scaling)
-        print(i)
 
 p0 = float(input("Input the initial population at year zero: "))
 rate = float(input("Enter the rate: "))
