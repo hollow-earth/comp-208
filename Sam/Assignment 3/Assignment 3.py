@@ -1,14 +1,32 @@
-# This code could be made a LOT more efficient with numpy arrays instead of creating multiple lists, one for each row.
+# This code could be made a LOT more efficient but I started writing with dictionaries and then switched to lists in order to experiment
+# We use a dictionary with list + sublist with index rows[row #] = [# x, # o], columns[column #] = [#x, #o], diagonal[1 or 2] = [#x, #o]
 
-# We use a dictionary with dict [row #] = (# x, # o), dict [column #](#x, #o), dict[diagonal 1/2] (#x, #o)
+# Global variables
+boardSize = 5
+rows = [[0,0] for a in range(0, boardSize)]
+columns = [[0,0] for a in range(0, boardSize)]
+diagonals = [[0,0],[0,0]]
+
+def convertToArray(cell):
+    row = (cell - 1) // boardSize                               # Floored division, gives how many times it fits into the number
+    column = (cell - 1) % boardSize                             # Gives remainder
+    diagonal = 2
+
+    if row == column:
+        diagonal = 0                                            # Diagonal 0 is \, diagonal 1 is /
+    elif (row+column) == (boardSize-1):
+        diagonal = 1
+
+    return (row, column, diagonal)
 
 def displayBoard(board):
-    # Row length = 5, switch every 5
-    i = 1
-    while i < 26:
-        print(board[i], board[i+1], board[i+2], board[i+3], board[i+4], sep="  ")
-        i += 5
+    lineString = ""
 
+    for j in range(boardSize):
+        for i in range(boardSize):
+            lineString += (board[i + 1 + j*boardSize] + "  ")
+        print(lineString)
+        lineString = ""
 
 def checkIfLegal(number, occupiedTiles):
     state = None
@@ -34,7 +52,8 @@ def checkWinner(board):
     #s
 
 def main():
-    board = {1:"01", 2:"02", 3:"03", 4:"04", 5:"05", 6:"06", 7:"07", 8:"08", 9:"09", 10:"10", 11:"11", 12:"12", 13:"13", 14:"14", 15:"15", 16:"16", 17:"17", 18:"18", 19:"19", 20:"20", 21:"21", 22:"22", 23:"23", 24:"24", 25:"25"}
+    board = dict([(a, f"{a:02.0f}") for a in range(1, boardSize**2+1)])                 # For i in range, this creates a tuple with a key and value, adds it to a list which is then turned into a dictionary. The format string is used to create numbers "01", "02", and so on
+    
     occupiedTiles = []
     print("Hello and welcome to the Tic-Tac-Toe Comp 208 challenge: Player against Computer.\nThe board is numbered from 1 to 25 as per the following:")
     displayBoard(board)
@@ -42,7 +61,6 @@ def main():
     while True:
         userInput = input("Start? (y/n) ")
         if userInput == "y" or userInput == "Y":
-            #valve please fix
             break
         elif userInput == "n" or userInput == "N":
             exit()
@@ -69,8 +87,7 @@ def main():
                 print("Number is legal, adding to the board...")
                 board[number] = "x "
                 occupiedTiles.append(number)
-                displayBoard(board)
-                print(occupiedTiles)
-
+                
+                row, column, diagonal = convertToArray(number)
         
 main() 
