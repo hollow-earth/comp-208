@@ -9,11 +9,23 @@ def displayBoard(board):
         print(board[i], board[i+1], board[i+2], board[i+3], board[i+4], sep="  ")
         i += 5
 
-#def checkIfLegal(number, board):
-    #aaaaaa
 
-#def checkWinner(board):
-    #bruh
+def checkIfLegal(number, occupiedTiles):
+    state = None
+    errorCode = None
+    if number > 25 or number < 1:
+        state = False
+        errorCode = 1
+    if number in occupiedTiles:
+        state = False
+        errorCode = 2
+    elif number not in occupiedTiles and number < 26 and number > 0:
+        state = True 
+    return state, errorCode
+
+def checkWinner(board):
+    winState = None
+    return winState # Completely not finished lol
 
 #def computerMove(board):
     #a
@@ -36,5 +48,29 @@ def main():
             exit()
         else:
             print("Invalid input, try again.")
+    
+    while checkWinner(board) == None:
+        while True:
+            while True:
+                try:
+                    number = int(input("Which number of the board would you like to occupy? "))
+                    break
+                except ValueError:
+                    print("Please enter an integer.")
+            
+            state, errorCode = checkIfLegal(number, occupiedTiles)
+            
+            if state == False:
+                if errorCode == 1:
+                    print("Number is out of bounds, try again.")
+                if errorCode == 2:
+                    print("Number is occupied already, try again.")
+            elif state == True:
+                print("Number is legal, adding to the board...")
+                board[number] = "x "
+                occupiedTiles.append(number)
+                displayBoard(board)
+                print(occupiedTiles)
 
-main()
+        
+main() 
