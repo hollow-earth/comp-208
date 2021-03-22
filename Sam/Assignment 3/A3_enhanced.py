@@ -5,9 +5,9 @@
 from random import randint
 
 # Global variables that are to be kept outside of local variables in order to keep values between iterations
-boardSize = 5                                                                                                   # Will be easier to do the enhanced version if we don't hardcode straight away
-rows = [[0,0] for a in range(0, boardSize)]                                                                     # For each row, we create sublists as described in line 2. Same with columns
-columns = [[0,0] for a in range(0, boardSize)]
+boardSize = 0                                                                                                   # Will be easier to do the enhanced version if we don't hardcode straight away
+rows = []                                                                     # For each row, we create sublists as described in line 2. Same with columns
+columns = []
 diagonals = [[0,0],[0,0]]                                                                                       # Same as stated above, except these are hardcoded as there will always be two
 
 centerTaken = False                                                                                             # Flag
@@ -26,7 +26,6 @@ def convertToArray(cell):                                                       
         diagonal = 1
     else:
         diagonal = 3
-
     return (row, column, diagonal)                                                                              # "array"
 
 def displayBoard(board):
@@ -164,7 +163,6 @@ def smartComputerMove(board, occupied, playerMove, previousMove):               
                 centerTaken = True
         elif (boardSize % 2) == 0:
             centerTaken == 0                                                                                # Not actually taken, the center just doesn't exist
-    
     corners = [1, boardSize, (boardSize-1)*boardSize + 1, boardSize**2]
     if cornersTaken == False:                                                                               # We don't bother running the same calculation over and over if it's taken
         for b in corners: 
@@ -178,12 +176,13 @@ def smartComputerMove(board, occupied, playerMove, previousMove):               
         return randomMove
 
 def main():
-    board = dict([(a, f"{a:02.0f}") for a in range(1, boardSize**2+1)])                                     # For i in range, this creates a tuple with a key and value, adds it to a list which is then turned into a dictionary. The format string is used to create numbers "01", "02", and so on
-    occupiedTiles = []
+    global boardSize
+    global rows
+    global columns
+    global diagonals
 
-    print("Hello and welcome to the Tic-Tac-Toe Comp 208 challenge: Player against Computer.\nThe board is numbered from 1 to 25 as per the following:")
-    displayBoard(board)
-    print("Player starts first. Simply input the number of the cell you want to occupy. Player’s move is marked with X. Computer’s move is marked with O.")
+    print("Hello and welcome to the Tic-Tac-Toe Comp 208 challenge: Player against Computer.")
+
     
     while True:
         userInput = input("Start? (y/n) ")
@@ -194,7 +193,23 @@ def main():
         else:
             print("Invalid input, try again.")
 
+    while True:                                                                                             # Only stops when we get a satisfying answer
+        try:
+            boardSize = int(input("Which size should the board be? (>= 3) "))
+            if boardSize >= 3:
+                break
+        except ValueError:
+            print("Please enter an integer.")
+    
+    board = dict([(a, f"{a:02.0f}") for a in range(1, boardSize**2+1)])                                     # For i in range, this creates a tuple with a key and value, adds it to a list which is then turned into a dictionary. The format string is used to create numbers "01", "02", and so on
+    occupiedTiles = []
     previousMove = None
+    print("The board is numbered from 1 to", boardSize**2, "as per the following:")
+    displayBoard(board)
+    print("Player starts first. Simply input the number of the cell you want to occupy. Player’s move is marked with X. Computer’s move is marked with O.")
+    rows = [[0,0] for a in range(0, boardSize)]                                                             # For each row, we create sublists as described in line 2. Same with columns
+    columns = [[0,0] for a in range(0, boardSize)]
+    diagonals = [[0,0],[0,0]]  
 
     while True:
         # Here begins player's turn. AI's turn ends here.
@@ -245,4 +260,5 @@ def main():
             checkWinner((row, col, diagonal), occupiedTiles, turn)
 
             # AI turn ends here. Replace computerMove(board, occupiedTiles) with smartComputerMove to test either
+
 main()
