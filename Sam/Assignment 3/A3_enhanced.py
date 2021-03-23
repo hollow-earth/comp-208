@@ -198,6 +198,8 @@ def main():
             boardSize = int(input("Which size should the board be? (>= 3) "))
             if boardSize >= 3:
                 break
+            elif boardSize < 3:
+                print("Value too small, try again.")
         except ValueError:
             print("Please enter an integer.")
     
