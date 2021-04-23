@@ -1,0 +1,139 @@
+Question 1:
+Write a class called FileManager that would take a filename as its constructor argument.
+The class should implement a method called addText. This method will ask the user to input one sentence at a time and then write the sentence to a new line in the file. Any pre existing text in the file should be preserved. The method should keep on asking the user to input a sentence until the user inputs the word “exit”. This is when the method would stop asking the user to input anything and it will exit. The word “exit” shall not be written to the file.
+The class should also implement another method called readText. This method will read the content of the file and then print it to the screen.
+Write a third method called getLineNumber that would return back the number of lines in the file. If the file is empty, the method should return 0.
+The following test code should run without errors:
+
+f = FileManager(“myfile.txt”)
+f.addText() # this method should ask the user to input a text
+
+# assuming that the user inputs the following:
+# Hello Comp208
+# It was awesome teaching you
+# exit
+f.readText() # this should print the content of the file to the screen
+number = f.getLineNumber() # this should return the number of lines in the file
+print(number) # this should print 2 because the file contains 2 lines.
+
+Grading:
+3 points for constructor method
+7 points for addText method
+4 points for readText method
+4 points for getLineNumber method
+2 points for clarity of code, respecting the provided signatures and for providing clear comments explaining the algorithm
+
+===============================================================================================
+
+Question 2:
+Write a class called Sorting that has 2 sorting methods implemented: Selection Sort and Insertion Sort. These are the same sorting algorithms that we covered in class.
+When instantiating an object of the class, we should provide a number as a constructor argument. The number is an indication to which sorting method we  want to run by default when we call mysort method, a method that we will be implementing as well. 
+If the number is 1, it means that  we want to use selection sort when we call mysort. If the number is 2, it means that Insertion sort should run when we call mysort.
+The class should also support printing of the sorted list when we use print function on an object of type Sorting. The values should be printed to the screen separated by a dash like this: 1 - 2 - 3 - 4 # assuming that the list has the numbers 1, 2, 3 and 4
+The following test code should run without errors:
+
+# test 1
+s = Sorting(2) # 2 means that we want insert sort to be applied
+s.mysort([4,23,1])
+print(s) # This should print the sorted list as follow: 1 - 4 - 23
+
+# test 2
+s = Sorting(1) # 1 means that we want selection sort to be applied
+mylist = [2, 22, 11, 7]
+s.mysort(mylist)
+print(s) # This should print the sorted list as follow: 2 - 7 - 11 - 22
+
+ 
+
+Grading:
+4 points for constructor method
+6 points for implementing a mechanism to decide which sort method to run based on the provided number
+5 points for properly implementing mysort
+3 points for properly implementing printing mechanism for the class
+2 points for clarity of code, respecting the provided signatures and for providing clear comments explaining the algorithm
+
+===============================================================================================
+
+Question 3:
+Write a function called check_pattern that given a sentence will check whether the sentence contains a certain pattern. The function should return a boolean value indicating whether the pattern was being detected in the sentence.
+
+The signature of the function is:
+check_pattern(sentence, pattern)
+
+sentence: is the given string of characters
+pattern: is the pattern that we should look for
+
+Note that the pattern should always be of len 3 and it starts with a character followed by a number then followed by a character. For example, a pattern of “a1b” means that we are looking for a letter “a” followed by any one letter or character then followed by the letter “b”.
+“a2b” means that we are looking for an occurrence of the letter “a” followed by any 2 characters then followed by the letter “b”.
+
+The following test code should run without errors:
+
+check_pattern("something", "m2h") 
+
+This should return True, because the letter “m” in something was followed by 2 letters then followed by the letter “h” (meth in something).
+
+check_pattern("something", "o1e")
+
+This also should return True because indeed the letters “o” and “e” are separated by only 1 character.
+
+check_pattern("something", "m2g")
+
+This should return False because there is no such pattern in “something” where the letters m and g are separated by only 2 characters.
+
+Grading:
+5 points for detecting the beginning of the pattern
+10 points for checking the end of the pattern by matching the proper position as per the number provided in the provided pattern
+3 points for properly detecting whether the pattern does not occur in the string
+2 points for clarity of code and for providing clear comments explaining the algorithm
+
+===============================================================================================
+
+===============================================================================================
+
+Question 5:
+Write a function called shift_characters that given a word will shift the characters of the word either right or left by a certain number. The function should print the result to the screen. 
+
+The signature of the function is:
+shift_characters(word, number, direction)
+
+word: is the given word
+number: is the number of times the characters should be shifted
+direction: is the direction of the shift, either right or left.
+
+Please note that before applying any algorithm, the function should make sure that the word provided is not an empty string, and also should check that the direction is a valid direction meaning that it is either right or left and nothing else. In case the word was empty or the direction is not valid, a clear warning message should be displayed to the screen stating the nature of the problem and the function should exit.
+
+The following test code should run without errors:
+shift_characters(“something”, 3, ‘right’) # this should print: ingsometh
+shift_characters(“something”, 3, left) # this should print: ethingsom
+shift_characters("Galadriel", 1, 'left') # this should print: aladrielG
+
+ 
+
+Grading scheme:
+4 points for shift left algorithm
+4 points for shift right algorithm
+2 points for validating that the word and the direction are valid before going any further.
+
+===============================================================================================
+
+Question 6:
+Given the coordinates of 2 points (x1,y1) and (x2,y2) provided as tuples, write a python function called getXandYintercepts that would print the x and y intercepts of the line formed by joining the 2 points.
+
+Remember that the equation of the line is given by: 
+y = mx+c (m is the slope and c is a constant)
+And the slope formula is given by: m = (y2-y1) / (x2-x1)
+You obtain the x intercept by replacing y by zero in the equation of the line.
+You obtain the y intercept by replacing x by zero in the equation of the line
+To get the value of c use any of the given points together with the slope in the equation y=mx+c.
+Also note that the code should take into consideration when the line is parallel to the y axis or the x axis.
+
+The following test code should run without errors:
+p1 = (5, 2)
+p2 = (7, 2)
+getXandYintercepts(p1, p2) # this should print the values for x and y intercepts
+
+Grading:
+3 points for properly finding x-intercept as per the instructions
+3 points for properly finding y-intercept as per the instructions
+2 point for properly managing the case of a vertical line (no y-intercept)
+2 point for properly managing the case of a horizontal line (no x-intercept)
